@@ -1,0 +1,100 @@
+﻿<Window x:Class="TaskManager.TaskDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManager"
+        mc:Ignorable="d"
+        Title="Подробности задачи" Height="550" Width="500">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#F0F0F0" Padding="15" 
+                CornerRadius="5" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock x:Name="TitleTextBlock" Text="Название задачи" 
+                           FontSize="20" FontWeight="Bold" 
+                           TextWrapping="Wrap"/>
+                <TextBlock x:Name="StatusTextBlock" Text="Статус: Активна" 
+                           FontSize="13" Foreground="Gray" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Детали -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ID -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                               Text="ID:" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                               x:Name="IdTextBlock" Text="-" Margin="0,5"/>
+
+                    <!-- Приоритет -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                               Text="Приоритет:" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                               x:Name="PriorityTextBlock" Text="-" Margin="0,5"/>
+
+                    <!-- Категория -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                               Text="Категория:" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" 
+                               x:Name="CategoryTextBlock" Text="-" Margin="0,5"/>
+
+                    <!-- Дата создания -->
+                    <TextBlock Grid.Row="3" Grid.Column="0" 
+                               Text="Создана:" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" 
+                               x:Name="CreatedDateTextBlock" Text="-" Margin="0,5"/>
+
+                    <!-- Срок -->
+                    <TextBlock Grid.Row="4" Grid.Column="0" 
+                               Text="Срок выполнения:" FontWeight="SemiBold" Margin="0,5"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" 
+                               x:Name="DueDateTextBlock" Text="-" Margin="0,5"/>
+                </Grid>
+
+                <Separator Margin="0,5,0,15"/>
+
+                <!-- Описание -->
+                <TextBlock Text="Описание:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <Border BorderBrush="LightGray" BorderThickness="1" 
+                        Padding="10" MinHeight="100" Background="#FAFAFA">
+                    <TextBlock x:Name="DescriptionTextBlock" 
+                               Text="Описание отсутствует"
+                               TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button x:Name="ToggleStatusButton" Content="✓ Отметить выполненной" 
+                    Width="180" Height="35" Margin="0,0,10,0"
+                    Click="ToggleStatusButton_Click"/>
+            <Button x:Name="CloseButton" Content="Закрыть" 
+                    Width="100" Height="35"
+                    IsCancel="True" Click="CloseButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -20,4 +20,35 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void AddTaskButton_Click(object sender, RoutedEventArgs e)
+    {
+        Window AddTaskWindow = new AddTaskWindow();
+        AddTaskWindow.ShowDialog();
+    }
+
+    private void EditTaskButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void DetailsButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void TasksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
 }
