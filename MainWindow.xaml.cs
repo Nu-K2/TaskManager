@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,46 +10,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaskManager;
+namespace TaskTracker;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly TaskManager _manager = new();
+    private ObservableCollection<TaskItem> _tasksView;
     public MainWindow()
     {
         InitializeComponent();
+        LoadTasks();
     }
-
+    private void LoadTasks()
+    {
+        _tasksView = new ObservableCollection<TaskItem>(_manager.GetAllTasks());
+        TasksDataGrid.ItemsSource = _tasksView;
+    }
     private void AddTaskButton_Click(object sender, RoutedEventArgs e)
     {
         Window AddTaskWindow = new AddTaskWindow();
         AddTaskWindow.ShowDialog();
-    }
 
-    private void EditTaskButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void DetailsButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-    private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void TasksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
+        LoadTasks();
     }
 }

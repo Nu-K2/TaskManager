@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace TaskManager;
+namespace TaskTracker;
 
 /// <summary>
 /// Interaction logic for App.xaml

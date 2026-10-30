@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TaskManager
+namespace TaskTracker
 {
     /// <summary>
     /// Логика взаимодействия для TaskDetailsWindow.xaml
@@ -20,16 +20,6 @@ namespace TaskManager
         public TaskDetailsWindow()
         {
             InitializeComponent();
-        }
-
-        private void ToggleStatusButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

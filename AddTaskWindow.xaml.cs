@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TaskManager
+namespace TaskTracker
 {
     /// <summary>
     /// Логика взаимодействия для AddTaskWindow1.xaml
@@ -20,36 +20,6 @@ namespace TaskManager
         public AddTaskWindow()
         {
             InitializeComponent();
-        }
-
-        private void CategoryTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void PriorityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
