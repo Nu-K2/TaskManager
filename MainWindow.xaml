@@ -5,58 +5,97 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskTracker"
         mc:Ignorable="d"
-        Title="Работу выполнили: Бедарева Софья и Сторожева Анна. Группа: 9ИС-435. Практическая работа №6: Разработка приложения с несколькими формами в WPF и C#" Height="450" Width="800">
+        Title="Работу выполнили: Бедарева Софья и Сторожева Анна. Группа: 9ИС-435. Практическая работа №6"
+        Height="520" Width="950"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
-        <TextBlock Grid.Row="0" Text="Список задач" 
-                   FontSize="24" FontWeight="Bold" 
-                   Margin="0,0,0,15"/>
+        <!-- Заголовок + описание -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,15">
+            <TextBlock Text="Менеджер задач"
+                       FontSize="24" FontWeight="Bold"/>
+            <TextBlock Text="ПР №6: Многоконные приложения WPF — демонстрация работы с несколькими формами"
+                       FontSize="12" Foreground="Gray" Margin="0,4,0,0"/>
+        </StackPanel>
 
-        <!-- Панель инструментов -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button x:Name="AddTaskButton" Content="Добавить задачу" 
-                    Width="160" Height="35" Margin="0,0,10,0"/>
-            <Button x:Name="EditTaskButton" Content="Редактировать" 
-                    Width="140" Height="35" Margin="0,0,10,0"/>
-            <Button x:Name="DeleteTaskButton" Content="Удалить" 
-                    Width="120" Height="35" Margin="0,0,10,0"/>
-            <Button x:Name="DetailsButton" Content="Подробнее" 
-                    Width="140" Height="35" Margin="0,0,10,0"/>
+        <!-- Панель кнопок -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,10">
+            <Button x:Name="AddTaskButton" Content="Добавить задачу"
+                    Width="160" Height="35" Margin="0,0,8,8"
+                    Click="AddTaskButton_Click"/>
+            <Button x:Name="EditTaskButton" Content="Редактировать"
+                    Width="140" Height="35" Margin="0,0,8,8"
+                    Click="EditTaskButton_Click"/>
+            <Button x:Name="DeleteTaskButton" Content="Удалить"
+                    Width="120" Height="35" Margin="0,0,8,8"
+                    Click="DeleteTaskButton_Click"/>
+            <Button x:Name="DetailsButton" Content="Подробнее"
+                    Width="140" Height="35" Margin="0,0,8,8"
+                    Click="DetailsButton_Click"/>
+            <Button x:Name="ShowAllButton" Content="Показать все задачи"
+                    Width="170" Height="35" Margin="0,0,8,8"
+                    Click="ShowAllButton_Click"/>
+            <Button x:Name="ClearAllButton" Content="Очистить список"
+                    Width="140" Height="35" Margin="0,0,8,8"
+                    Click="ClearAllButton_Click"/>
+            <Button x:Name="AboutButton" Content="О программе"
+                    Width="130" Height="35" Margin="0,0,8,8"
+                    Click="AboutButton_Click"/>
+            <Button x:Name="ExitButton" Content="Выход"
+                    Width="100" Height="35" Margin="0,0,0,8"
+                    Click="ExitButton_Click"/>
+        </WrapPanel>
 
-            <ComboBox x:Name="FilterComboBox" Width="150" Height="35" SelectedIndex="0">
+        <!-- Фильтр -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Фильтр:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <ComboBox x:Name="FilterComboBox" Width="180" Height="30"
+                      SelectedIndex="0"
+                      SelectionChanged="FilterComboBox_SelectionChanged">
                 <ComboBoxItem Content="Все задачи"/>
                 <ComboBoxItem Content="Активные"/>
                 <ComboBoxItem Content="Выполненные"/>
             </ComboBox>
         </StackPanel>
 
-        <!-- Список задач -->
-        <DataGrid Grid.Row="2" x:Name="TasksDataGrid"
+        <!-- Таблица -->
+        <DataGrid Grid.Row="3"
+                  x:Name="TasksDataGrid"
+                  ItemsSource="{Binding Tasks}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   HeadersVisibility="Column"
                   GridLinesVisibility="Horizontal"
-                  AlternatingRowBackground="LightGray">
+                  SelectedItem="{Binding SelectedTask, Mode=TwoWay}"
+                  AlternatingRowBackground="LightGray"
+                  MouseDoubleClick="TasksDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <DataGridCheckBoxColumn Header="Выполнено" Binding="{Binding IsCompleted}" Width="90"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                <DataGridCheckBoxColumn Header="Выполнено"
+                        Binding="{Binding IsCompleted, Mode=OneWay}"
+                        Width="90"
+                        IsReadOnly="True"/>
                 <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*"/>
                 <DataGridTextColumn Header="Приоритет" Binding="{Binding Priority}" Width="100"/>
-                <DataGridTextColumn Header="Дата создания" Binding="{Binding CreatedDate, StringFormat=dd.MM.yyyy HH:mm}" Width="150"/>
-                <DataGridTextColumn Header="Срок" Binding="{Binding DueDate, StringFormat=dd.MM.yyyy}" Width="100"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="110"/>
+                <DataGridTextColumn Header="Дата создания"
+                                    Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}"
+                                    Width="150"/>
+                <DataGridTextColumn Header="Срок"
+                                    Binding="{Binding Deadline, StringFormat=dd.MM.yyyy}"
+                                    Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Статусная строка -->
-        <StatusBar Grid.Row="3" Margin="0,10,0,0">
+        <StatusBar Grid.Row="4" Margin="0,10,0,0">
             <StatusBarItem>
                 <TextBlock x:Name="StatusText" Text="Готово"/>
             </StatusBarItem>

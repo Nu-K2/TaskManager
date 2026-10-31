@@ -1,37 +1,43 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace TaskTracker
 {
-    internal class TaskManager
+    public class TaskManager
     {
-        private List<TaskItem> tasks = new();
-        public int Count => tasks.Count;// — возвращает количество задач.
+        private static readonly TaskManager _instance = new();
+        public static TaskManager GetTaskManager => _instance;
+        private TaskManager() { }
 
-        internal void AddTask(string title, string description, TaskPriority priority, DateTime deadline, TaskCategory category) { 
+        private readonly List<TaskItem> tasks = new();
+
+        public int Count => tasks.Count;
+
+        public List<TaskItem> GetAllTasks() => tasks;
+
+        // Перегрузка из методички (требование №2)
+        public bool AddTask(string title, string description)
+        {
             if (string.IsNullOrWhiteSpace(title))
+                return false;
+
+            tasks.Add(new TaskItem
             {
-                MessageBox.Show("Заголовок задачи не может быть пустым.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(description)) {
-                MessageBox.Show("Описание задачи не может быть пустым.");
-                return;
-            }
-            tasks.Add(new TaskItem(title, description, priority, deadline, category));
-            MessageBox.Show("Задача успешно добавлена.");
-        }//— добавляет задачу в список.
-        internal List<TaskItem> GetAllTasks() { 
-            return tasks; 
-        }// — возвращает список всех задач.
+                Title = title,
+                Description = description ?? string.Empty
+            });
+            return true;
+        }
 
+        public bool AddTask(TaskItem task)
+        {
+            if (task == null || string.IsNullOrWhiteSpace(task.Title))
+                return false;
+            tasks.Add(task);
+            return true;
+        }
 
-        internal void ClearAllTasks() {
-            tasks.Clear();
-        }// — очищает список задач.
-            
+        public bool RemoveTask(TaskItem task) => tasks.Remove(task);
+
+        public void ClearAllTasks() => tasks.Clear();
     }
 }
